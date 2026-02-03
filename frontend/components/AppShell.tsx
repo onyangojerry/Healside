@@ -1,20 +1,21 @@
 import React from 'react';
-import NavRail from './NavRail';
-import Header from './Header';
+import LeftNav from './LeftNav';
+import TopHeader from './TopHeader';
 
 interface AppShellProps {
   children: React.ReactNode;
+  onSearch?: (value: string) => void;
 }
 
-const AppShell: React.FC<AppShellProps> = ({ children }) => {
+const AppShell: React.FC<AppShellProps> = ({ children, onSearch }) => {
   return (
     <div className="app-shell">
-      <NavRail />
-      <div className="main-content">
-        <Header />
-        <div className="content">
+      <LeftNav />
+      <div className="app-main">
+        <TopHeader onSearch={onSearch} />
+        <main className="app-content" role="main">
           {children}
-        </div>
+        </main>
       </div>
     </div>
   );

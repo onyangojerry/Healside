@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ApproveRequest } from '../lib/types';
+import { ApproveRequest, ApprovalArtifactKey } from '../lib/types';
 
 interface ApprovalControlsProps {
   caseId: string;
@@ -7,8 +7,8 @@ interface ApprovalControlsProps {
 }
 
 const ApprovalControls: React.FC<ApprovalControlsProps> = ({ caseId, onApprove }) => {
-  const [artifactType, setArtifactType] = useState('SUMMARY');
-  const [decision, setDecision] = useState('APPROVE');
+  const [artifactType, setArtifactType] = useState<ApprovalArtifactKey>('summary');
+  const [decision, setDecision] = useState<ApproveRequest['decision']>('APPROVE');
   const [notes, setNotes] = useState('');
 
   const handleSubmit = () => {
@@ -17,12 +17,13 @@ const ApprovalControls: React.FC<ApprovalControlsProps> = ({ caseId, onApprove }
 
   return (
     <div>
-      <select value={artifactType} onChange={e => setArtifactType(e.target.value)}>
-        <option value="SUMMARY">Summary</option>
-        <option value="OUTREACH_DRAFTS">Outreach</option>
-        <option value="SCHEDULING_REQUEST">Scheduling</option>
+      <select value={artifactType} onChange={e => setArtifactType(e.target.value as ApprovalArtifactKey)}>
+        <option value="summary">Summary</option>
+        <option value="medrec">Med Rec</option>
+        <option value="outreach">Outreach</option>
+        <option value="scheduling">Scheduling</option>
       </select>
-      <select value={decision} onChange={e => setDecision(e.target.value)}>
+      <select value={decision} onChange={e => setDecision(e.target.value as ApproveRequest['decision'])}>
         <option value="APPROVE">Approve</option>
         <option value="REJECT">Reject</option>
       </select>

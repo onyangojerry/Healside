@@ -2,14 +2,16 @@ import React from 'react';
 
 interface KpiCardProps {
   title: string;
-  value: number;
+  value: string | number;
+  helper?: string;
 }
 
-const KpiCard: React.FC<KpiCardProps> = ({ title, value }) => {
+const KpiCard: React.FC<KpiCardProps> = ({ title, value, helper }) => {
   return (
     <div className="kpi-card">
-      <h4>{title}</h4>
-      <p>{value}</p>
+      <div className="kpi-title">{title}</div>
+      <div className="kpi-value">{value}</div>
+      {helper && <div className="kpi-helper">{helper}</div>}
     </div>
   );
 };

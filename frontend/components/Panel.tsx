@@ -4,22 +4,24 @@ import StatusBadge from './StatusBadge';
 interface PanelProps {
   title: string;
   status?: string;
-  children: React.ReactNode;
+  actions?: React.ReactNode;
   footer?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Panel: React.FC<PanelProps> = ({ title, status, children, footer }) => {
+const Panel: React.FC<PanelProps> = ({ title, status, actions, footer, children }) => {
   return (
-    <div className="panel">
-      <div className="panel-header">
-        <h3>{title}</h3>
-        {status && <StatusBadge status={status} />}
-      </div>
-      <div className="panel-body">
-        {children}
-      </div>
-      {footer && <div className="panel-footer">{footer}</div>}
-    </div>
+    <section className="panel">
+      <header className="panel__header">
+        <div className="panel__title">
+          <h2>{title}</h2>
+          {status && <StatusBadge status={status} />}
+        </div>
+        {actions && <div className="panel__actions">{actions}</div>}
+      </header>
+      <div className="panel__body">{children}</div>
+      {footer && <footer className="panel__footer">{footer}</footer>}
+    </section>
   );
 };
 
