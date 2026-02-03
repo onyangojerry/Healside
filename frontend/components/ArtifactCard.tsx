@@ -1,6 +1,7 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
 import { Artifact } from '../lib/types';
+import { formatDate } from '../utils/helpers';
 
 interface ArtifactCardProps {
   artifact: Artifact;

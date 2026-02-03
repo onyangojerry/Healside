@@ -1,13 +1,9 @@
 # Security
 
 Secrets handled via env vars and Kubernetes secrets. No secrets in code. Containers run as non-root. Postgres/Redis internal only. TLS recommended for production.
-- **Eradication**: Patch vulnerabilities.
-- **Recovery**: Rollback to clean state.
-- **Lessons Learned**: Post-mortem review.
 
-## Compliance Mapping
-
-- **HIPAA Security Rule Safeguards**:
+## Test Data Rules
+Tests use synthetic data only; no PHI. Auth testing verifies UI gating but relies on backend for enforcement.
   - Administrative: Policies, training, risk assessments.
   - Technical: Access controls, encryption, integrity checks.
   - Physical: Cloud provider safeguards.
