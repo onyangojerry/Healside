@@ -22,6 +22,16 @@ flowchart LR
 - Approvals and audit events are written by the API.
 - Frontend includes correlation IDs in every request for traceability.
 
+## Agent Activation v1 Runtime Topology
+
+1. API receives `/v1/cases/{case_id}/orchestrate` and enqueues a worker task with a correlation ID.
+2. Worker executes deterministic agents in order:
+   - Data Completeness
+   - Draft Generation
+   - QA/Policy
+3. Artifacts and tasks are persisted with versioning and audit events for every step.
+4. State transitions are explicit and stored on the `cases.state` field.
+
 ## Scalability and Reliability
 
 - Horizontal scaling via Kubernetes.

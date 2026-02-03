@@ -17,6 +17,13 @@
 - **Policy Checks**: Regex for no advice, completeness metrics.
 - **Run Outside LLM**: For reliability.
 
+## Agent Activation v1 Rules
+
+- **Citation coverage**: >= 80% of statements must include citations.
+- **No medical advice**: deterministic forbidden language list.
+- **Outreach disclaimer**: required patient-facing disclaimer text.
+- **PHI leakage**: phone/email/address detection in UI-safe fields triggers escalation.
+
 ## Scheduling Optimization
 
 - **Approach**: Constraint-based (availability, priority).

@@ -11,3 +11,9 @@ Environment Variables:
 - Frontend: NEXT_PUBLIC_BACKEND_BASE_URL
 
 Migrations: Run `alembic upgrade head` in backend container.
+
+## Agent Activation v1
+
+- Orchestration is triggered via `POST /v1/cases/{case_id}/orchestrate`.
+- Worker must be running for agent execution:
+  - `celery -A app.workers.celery_app worker --loglevel=info`

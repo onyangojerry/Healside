@@ -15,3 +15,11 @@ Tests use synthetic data only; no PHI. Auth testing verifies UI gating but relie
 - **LLM Vendor**: Data processing agreement ensuring no PHI used for training; model hosted in HIPAA-compliant environment.
 - **SMS/Email Vendor**: HIPAA-compliant (e.g., Twilio with BAA).
 - **Cloud Provider**: SOC2 Type II certified; use of VPCs, firewalls.
+
+## Agent Activation v1 Security Controls
+
+- **RBAC enforced server-side** on approval endpoints.
+- **Escalation gating** blocks outreach approvals when `ESCALATION_REQUIRED`.
+- **Correlation IDs** propagate through API, worker, and audit events.
+- **Audit events** are append-only and include task/action metadata without PHI.
+- **PHI safeguards**: QA policy agent checks for phone/email/address leakage in UI-safe fields.

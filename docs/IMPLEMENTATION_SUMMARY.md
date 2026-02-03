@@ -6,6 +6,7 @@
 - Human-in-the-loop approvals.
 - API, UI, workers, infra.
 - Data flow diagram added to ARCHITECTURE.md.
+- Agent Activation v1: deterministic agents, task persistence, QA policy, audit events.
 
 ## Explicitly Out of Scope
 

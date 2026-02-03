@@ -87,6 +87,7 @@ class Orchestrator:
         await create_audit_event(self.db, case_id, "STATE_CHANGE", "SYSTEM", "orchestrator", {"new_state": "ELIGIBLE"})
 
         normalized = NormalizationAgent().run(bundle.bundle_json)
+        normalized["condition_focus"] = condition_focus
         case.state = "DATA_READY"
         await self.db.commit()
         await create_audit_event(self.db, case_id, "STATE_CHANGE", "SYSTEM", "orchestrator", {"new_state": "DATA_READY"})
@@ -241,6 +242,8 @@ class Orchestrator:
         records = result.scalars().all()
         payload = []
         for record in records:
+            if record.type == "QA_REPORT":
+                continue
             payload.append({
                 "type": record.type,
                 "content": record.content_json,

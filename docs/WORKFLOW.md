@@ -21,6 +21,15 @@ Failure States:
 
 Transitions triggered by agent completion or human action.
 
+## Agent Activation v1 Loop
+
+1. **Data Completeness**: validates bundle completeness and eligibility. Missing data -> `NEEDS_DATA`.
+2. **Draft Generation**: produces draft artifacts (SUMMARY, MEDREC, FOLLOWUP_PLAN, SCHEDULING_REQUEST, OUTREACH_DRAFTS).
+3. **QA/Policy**: deterministic checks (citations, disclaimer, no advice, no PHI).
+   - PASS -> `QA_PASSED` -> `HUMAN_REVIEW_REQUIRED`
+   - FAIL -> `HUMAN_REVIEW_REQUIRED`
+   - Severe -> `ESCALATION_REQUIRED` (blocks outreach approval)
+
 ## Human Approval Gates
 
 - **Summary Draft**: Clinician review for accuracy.

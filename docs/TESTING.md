@@ -26,3 +26,14 @@ Place in /frontend/test/ for unit/integration, /frontend/e2e/ for E2E. Use fixtu
 
 ### CI Expectations
 All tests pass on PRs; E2E on main merges.
+
+## Agent Activation Tests
+
+Backend tests for agent activation use `TEST_DATABASE_URL` pointing to a disposable Postgres instance.
+
+Example:
+
+```
+export TEST_DATABASE_URL=postgresql+asyncpg://user:password@localhost:5433/healside
+pytest tests/unit/test_agents.py tests/unit/test_approvals.py tests/integration/test_orchestrate.py
+```
