@@ -1,0 +1,25 @@
+.panel {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-new { background-color: #e3f2fd; color: #1976d2; }
+.status-eligible { background-color: #f3e5f5; color: #7b1fa2; }
+.status-data-ready { background-color: #e8f5e8; color: #388e3c; }
+.status-draft-ready { background-color: #fff3e0; color: #f57c00; }
+.status-qa-passed { background-color: #e0f2f1; color: #00695c; }
+.status-human-review-required { background-color: #fff8e1; color: #f9a825; }
+.status-approved { background-color: #e8f5e8; color: #2e7d32; }
+.status-closed { background-color: #f5f5f5; color: #616161; }
+.status-needs-data { background-color: #ffebee; color: #d32f2f; }
+.status-escalation-required { background-color: #ffebee; color: #d32f2f; }
+.status-comms-failed { background-color: #ffebee; color: #d32f2f; }
