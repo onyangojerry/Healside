@@ -6,6 +6,9 @@ from .follow_up import FollowUpPlanAgent
 from .scheduling import SchedulingAgent
 from .comms import CommsAgent
 from .qa import QACriticAgent
+from .data_completeness import DataCompletenessAgent
+from .draft_generation import DraftGenerationAgent
+from .qa_policy import QAPolicyAgent
 
 __all__ = [
     "EligibilityAgent",
@@ -16,4 +19,7 @@ __all__ = [
     "SchedulingAgent",
     "CommsAgent",
     "QACriticAgent",
+    "DataCompletenessAgent",
+    "DraftGenerationAgent",
+    "QAPolicyAgent",
 ]

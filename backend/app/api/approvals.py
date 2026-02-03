@@ -15,6 +15,11 @@ async def approve(case_id: str, request: ApproveRequest, db: AsyncSession = Depe
     user_role = Role(current_user["role"])
     if request.artifact_type not in APPROVAL_PERMISSIONS or not has_permission(user_role, APPROVAL_PERMISSIONS[request.artifact_type]):
         raise HTTPException(status_code=403, detail="Insufficient permissions for this approval type")
+    case = await db.get(Case, case_id)
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    if request.artifact_type == "outreach" and case.state == "ESCALATION_REQUIRED":
+        raise HTTPException(status_code=403, detail="Outreach approval blocked due to escalation")
     result = await db.execute(select(CaseArtifact).where(CaseArtifact.case_id == case_id, CaseArtifact.type == request.artifact_type.upper()))
     artifact = result.scalar_one_or_none()
     if not artifact:
@@ -38,7 +43,6 @@ async def approve(case_id: str, request: ApproveRequest, db: AsyncSession = Depe
         if result.scalar_one_or_none():
             approved_count += 1
     if approved_count == len(required_types):
-        case = await db.get(Case, case_id)
         case.state = "APPROVED"
         await db.commit()
         await create_audit_event(db, case_id, "STATE_CHANGE", "SYSTEM", "approval", {"new_state": "APPROVED"})

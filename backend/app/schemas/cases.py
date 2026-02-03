@@ -41,17 +41,26 @@ class Artifact(BaseModel):
     status: str
     content: dict
     sources_used: List[str]
+    citations: Optional[List[str]] = None
+    qa_metadata: Optional[dict] = None
     created_by: str
     created_at: str
 
 class Task(BaseModel):
     id: str
+    task_type: Optional[str] = None
     role: Role
     title: str
     description: str
-    due_at: str
+    due_at: Optional[str] = None
     priority: str
     status: str
+    started_at: Optional[str] = None
+    finished_at: Optional[str] = None
+    input_hash: Optional[str] = None
+    correlation_id: Optional[str] = None
+    error_code: Optional[str] = None
+    error_message: Optional[str] = None
     created_at: str
 
 class CaseDetailResponse(BaseModel):

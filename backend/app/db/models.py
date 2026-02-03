@@ -43,19 +43,29 @@ class CaseArtifact(Base):
     status = Column(String, default="DRAFT")
     content_json = Column(JSON)
     sources_used = Column(JSON)
+    citations_json = Column(JSON)
+    qa_metadata_json = Column(JSON)
     created_by = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
 class Task(Base):
     __tablename__ = "tasks"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     case_id = Column(UUID(as_uuid=True), ForeignKey("cases.id"))
+    task_type = Column(String)
     role = Column(String)
     title = Column(String)
     description = Column(Text)
     due_at = Column(DateTime)
     priority = Column(String, default="MED")
     status = Column(String, default="OPEN")
+    started_at = Column(DateTime)
+    finished_at = Column(DateTime)
+    input_hash = Column(String)
+    correlation_id = Column(String)
+    error_code = Column(String)
+    error_message = Column(Text)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
 class Approval(Base):

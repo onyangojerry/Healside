@@ -5,6 +5,7 @@ from app.schemas.cases import IngestCaseRequest, CaseResponse, CaseListResponse,
 from app.db.models import Case, CaseBundle, CaseArtifact, Task, AuditEvent
 from app.core.rbac import has_permission, Role
 from app.core.auth import get_current_user
+from app.core.correlation_id import get_correlation_id
 from app.workers.tasks import orchestrate_case
 from app.services.audit import create_audit_event
 from sqlalchemy import select
@@ -93,6 +94,8 @@ async def get_case(case_id: str, db: AsyncSession = Depends(get_db), current_use
                 "status": a.status,
                 "content": a.content_json,
                 "sources_used": a.sources_used,
+                "citations": a.citations_json,
+                "qa_metadata": a.qa_metadata_json,
                 "created_by": a.created_by,
                 "created_at": a.created_at.isoformat()
             } for a in artifacts
@@ -100,12 +103,19 @@ async def get_case(case_id: str, db: AsyncSession = Depends(get_db), current_use
         tasks=[
             {
                 "id": str(t.id),
+                "task_type": t.task_type,
                 "role": Role(t.role),
                 "title": t.title,
                 "description": t.description,
                 "due_at": t.due_at.isoformat() if t.due_at else None,
                 "priority": t.priority,
                 "status": t.status,
+                "started_at": t.started_at.isoformat() if t.started_at else None,
+                "finished_at": t.finished_at.isoformat() if t.finished_at else None,
+                "input_hash": t.input_hash,
+                "correlation_id": t.correlation_id,
+                "error_code": t.error_code,
+                "error_message": t.error_message,
                 "created_at": t.created_at.isoformat()
             } for t in tasks
         ]
@@ -118,7 +128,9 @@ async def orchestrate(case_id: str, request: OrchestrateRequest, db: AsyncSessio
     case = await db.get(Case, case_id)
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
-    orchestrate_case.delay(case_id)
+    correlation_id = get_correlation_id()
+    orchestrate_case.delay(case_id, correlation_id=correlation_id)
+    await create_audit_event(db, case_id, "ORCHESTRATION_ENQUEUED", "USER", current_user["username"], {"case_id": case_id})
     return {"message": "Orchestration started"}
 
 @router.get("/{case_id}/audit", response_model=AuditResponse)
