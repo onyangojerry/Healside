@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 from app.core.rbac import Role
 
 class Token(BaseModel):
@@ -6,8 +7,8 @@ class Token(BaseModel):
     token_type: str
 
 class TokenData(BaseModel):
-    username: str | None = None
-    role: Role | None = None
+    username: Optional[str] = None
+    role: Optional[Role] = None
 
 class User(BaseModel):
     username: str

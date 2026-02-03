@@ -15,6 +15,11 @@
 - Codes: 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 404 (Not Found), 409 (Conflict), 422 (Unprocessable Entity), 500 (Internal Error)
 - Client errors for validation; server for system issues
 
+## Current Backend Behavior
+
+- Current backend responses use FastAPI default `{"detail": ...}` for errors.
+- Frontend normalizes this into a user-friendly message and displays the correlation ID.
+
 ## Authentication and Authorization
 
 - Protocol: OAuth2 with JWT tokens

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
 from app.schemas.auth import LoginRequest, Token
-from app.core.auth import verify_password, create_access_token
+from app.core.auth import verify_password, create_access_token, get_current_user
 from app.db.models import User
 from sqlalchemy import select
 
@@ -20,5 +20,3 @@ async def login(request: LoginRequest, db: AsyncSession = Depends(get_db)):
 @router.get("/me")
 async def me(current_user: dict = Depends(get_current_user)):
     return current_user
-
-from app.core.auth import get_current_user

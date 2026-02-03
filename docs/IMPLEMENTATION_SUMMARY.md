@@ -5,6 +5,7 @@
 - Agentic system for HF post-discharge: Eligibility check, data fetch, summary draft, med rec flags, follow-up planning, comms drafts, scheduling, task creation.
 - Human-in-the-loop approvals.
 - API, UI, workers, infra.
+- Data flow diagram added to ARCHITECTURE.md.
 
 ## Explicitly Out of Scope
 

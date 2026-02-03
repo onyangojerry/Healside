@@ -8,7 +8,7 @@ States:
 - **DATA_READY**: FHIR and documents fetched.
 - **DRAFT_READY**: Summaries and plans drafted.
 - **QA_PASSED**: Critic agent validates.
-- **HUMAN_REVIEW**: Pending approval.
+- **HUMAN_REVIEW_REQUIRED**: Pending approval.
 - **APPROVED**: Approved by human.
 - **SENT/BOOKED**: Actions executed.
 - **CLOSED**: Workflow complete.

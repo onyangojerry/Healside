@@ -50,4 +50,4 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     user = user.scalar_one_or_none()
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
-    return {"username": user.username, "role": user.role.value, "user_id": str(user.id)}
+    return {"username": user.username, "role": user.role, "user_id": str(user.id)}
