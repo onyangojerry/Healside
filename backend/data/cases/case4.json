@@ -1,0 +1,20 @@
+{
+  "patient_id": "P004",
+  "encounter_id": "E004",
+  "conditions": [
+    {"display": "Heart Failure", "code": "I50.9"}
+  ],
+  "observations": [
+    {"display": "BNP", "value": 500}
+  ],
+  "home_meds": [
+    {"name": "Enalapril", "dose": "10mg"}
+  ],
+  "discharge_meds": [
+    {"name": "Enalapril", "dose": "10mg"},
+    {"name": "Carvedilol", "dose": "6.25mg"}
+  ],
+  "document_text": "Discharged HF case.",
+  "contact_preferences": {"email": "yes"},
+  "preferred_language": "en"
+}

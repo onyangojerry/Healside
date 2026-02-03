@@ -1,0 +1,20 @@
+{
+  "patient_id": "P003",
+  "encounter_id": "E003",
+  "conditions": [
+    {"display": "Heart Failure", "code": "I50.9"}
+  ],
+  "observations": [
+    {"display": "Weight", "value": 180}
+  ],
+  "home_meds": [
+    {"name": "Warfarin", "dose": "5mg"}
+  ],
+  "discharge_meds": [
+    {"name": "Warfarin", "dose": "5mg"},
+    {"name": "Digoxin", "dose": "0.125mg"}
+  ],
+  "document_text": "HF patient discharged.",
+  "contact_preferences": {"phone": "yes"},
+  "preferred_language": "en"
+}

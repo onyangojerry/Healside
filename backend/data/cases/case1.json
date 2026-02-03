@@ -1,0 +1,20 @@
+{
+  "patient_id": "P001",
+  "encounter_id": "E001",
+  "conditions": [
+    {"display": "Heart Failure", "code": "I50.9"}
+  ],
+  "observations": [
+    {"display": "Creatinine", "value": 1.2}
+  ],
+  "home_meds": [
+    {"name": "Lisinopril", "dose": "10mg"}
+  ],
+  "discharge_meds": [
+    {"name": "Lisinopril", "dose": "10mg"},
+    {"name": "Furosemide", "dose": "20mg"}
+  ],
+  "document_text": "Patient discharged with heart failure.",
+  "contact_preferences": {"phone": "yes"},
+  "preferred_language": "en"
+}

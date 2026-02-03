@@ -1,0 +1,20 @@
+{
+  "patient_id": "P002",
+  "encounter_id": "E002",
+  "conditions": [
+    {"display": "Heart Failure", "code": "I50.9"}
+  ],
+  "observations": [
+    {"display": "Potassium", "value": 4.5}
+  ],
+  "home_meds": [
+    {"name": "Metoprolol", "dose": "25mg"}
+  ],
+  "discharge_meds": [
+    {"name": "Metoprolol", "dose": "25mg"},
+    {"name": "Spironolactone", "dose": "25mg"}
+  ],
+  "document_text": "Patient with HF discharged.",
+  "contact_preferences": {"email": "yes"},
+  "preferred_language": "en"
+}

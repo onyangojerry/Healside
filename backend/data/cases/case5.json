@@ -1,0 +1,20 @@
+{
+  "patient_id": "P005",
+  "encounter_id": "E005",
+  "conditions": [
+    {"display": "Heart Failure", "code": "I50.9"}
+  ],
+  "observations": [
+    {"display": "Ejection Fraction", "value": 35}
+  ],
+  "home_meds": [
+    {"name": "Amlodipine", "dose": "5mg"}
+  ],
+  "discharge_meds": [
+    {"name": "Amlodipine", "dose": "5mg"},
+    {"name": "Losartan", "dose": "50mg"}
+  ],
+  "document_text": "HF discharge summary.",
+  "contact_preferences": {"phone": "yes"},
+  "preferred_language": "en"
+}
