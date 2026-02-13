@@ -23,3 +23,4 @@ Tests use synthetic data only; no PHI. Auth testing verifies UI gating but relie
 - **Correlation IDs** propagate through API, worker, and audit events.
 - **Audit events** are append-only and include task/action metadata without PHI.
 - **PHI safeguards**: QA policy agent checks for phone/email/address leakage in UI-safe fields.
+- **LLM usage**: Open-source local models only; prompts avoid PHI fields and enforce disclaimers.

@@ -1,12 +1,13 @@
 import os
 import pytest
+import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.db.session import Base
 
 
-@pytest.fixture(scope="session")
+@pytest_asyncio.fixture(scope="session")
 def event_loop():
     loop = __import__("asyncio").new_event_loop()
     yield loop
@@ -21,7 +22,7 @@ def test_database_url():
     return url
 
 
-@pytest.fixture(scope="session")
+@pytest_asyncio.fixture(scope="session")
 async def async_engine(test_database_url):
     engine = create_async_engine(test_database_url, echo=False)
     async with engine.begin() as conn:
@@ -32,7 +33,7 @@ async def async_engine(test_database_url):
     await engine.dispose()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def db_session(async_engine):
     async_session = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False)
     async with async_session() as session:

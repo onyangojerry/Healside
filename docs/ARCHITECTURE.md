@@ -31,6 +31,7 @@ flowchart LR
    - QA/Policy
 3. Artifacts and tasks are persisted with versioning and audit events for every step.
 4. State transitions are explicit and stored on the `cases.state` field.
+5. Draft generation can optionally use open-source LLMs via LangChain + Ollama.
 
 ## Scalability and Reliability
 

@@ -1,11 +1,11 @@
 import re
 
 FORBIDDEN_PATTERNS = [
-    r"\\byou should\\b",
-    r"\\bmust take\\b",
-    r"\\bstop taking\\b",
-    r"\\bdiagnose\\b",
-    r"\\bprescribe\\b",
+    r"\byou should\b",
+    r"\bmust take\b",
+    r"\bstop taking\b",
+    r"\bdiagnose\b",
+    r"\bprescribe\b",
 ]
 
 DISCLAIMER = "Please contact your care team if you have questions."

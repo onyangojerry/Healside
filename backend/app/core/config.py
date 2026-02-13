@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     secret_key: str = "secret"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
+    llm_provider: str = "none"
+    ollama_base_url: str = "http://localhost:11434"
+    ollama_model: str = "phi3:mini"
 
     class Config:
         env_file = ".env"
