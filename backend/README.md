@@ -10,7 +10,7 @@ This is the backend for the Healside system, a closed-loop post-discharge follow
 
 3. Install dependencies: `poetry install`
 
-4. Set up environment variables: Copy `infra/env.example` to `.env` and fill in values.
+4. Set up environment variables: Copy `.env.example` to `.env` and fill in values.
 
 5. Run database migrations: `alembic upgrade head`
 
@@ -31,6 +31,37 @@ This is the backend for the Healside system, a closed-loop post-discharge follow
 - ALGORITHM: HS256
 
 - ACCESS_TOKEN_EXPIRE_MINUTES: 30
+
+- LLM_PROVIDER: `none` (default) or `ollama`
+
+- OLLAMA_BASE_URL: Ollama server URL, default `http://localhost:11434`
+
+- OLLAMA_MODEL: Ollama model name, default `phi3:mini`
+
+## LangChain + Ollama Setup
+
+If you are on Python 3.14 locally, dependency builds may fail (`asyncpg`, C-extension wheels). Prefer Python 3.11 or Docker for backend runtime.
+
+1. Start Ollama (Docker option):
+
+	- `docker run -d --name ollama -p 11434:11434 ollama/ollama`
+
+2. Pull model:
+
+	- `docker exec -it ollama ollama pull phi3:mini`
+
+3. Enable LLM in backend `.env`:
+
+	- `LLM_PROVIDER=ollama`
+	- `OLLAMA_BASE_URL=http://localhost:11434`
+	- `OLLAMA_MODEL=phi3:mini`
+
+4. Verify health endpoints after backend starts:
+
+	- `GET /v1/health`
+	- `GET /v1/health/llm`
+
+`/v1/health/llm` returns `degraded` when provider is enabled but unavailable.
 
 ## Testing
 

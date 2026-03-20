@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import cases, approvals, auth
 from app.core import correlation_id
+from app.services.llm_client import get_llm_status
 
 app = FastAPI(
     title="Healside API",
@@ -32,3 +33,12 @@ app.include_router(approvals.router, prefix="/v1/cases", tags=["approvals"])
 @app.get("/v1/health", tags=["health"])
 def health():
     return {"status": "healthy"}
+
+
+@app.get("/v1/health/llm", tags=["health"])
+def llm_health():
+    status = get_llm_status()
+    return {
+        "status": "healthy" if status["available"] or not status["enabled"] else "degraded",
+        **status,
+    }

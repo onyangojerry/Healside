@@ -7,6 +7,7 @@ from sqlalchemy import select
 from app.db.models import Case, CaseArtifact, Task, CaseBundle
 from app.services.agents import EligibilityAgent, NormalizationAgent, DataCompletenessAgent, DraftGenerationAgent, QAPolicyAgent
 from app.services.audit import create_audit_event
+from app.services.llm_client import get_llm_status
 from app.core.logging import logger
 from app.core.correlation_id import get_correlation_id
 
@@ -91,6 +92,26 @@ class Orchestrator:
         case.state = "DATA_READY"
         await self.db.commit()
         await create_audit_event(self.db, case_id, "STATE_CHANGE", "SYSTEM", "orchestrator", {"new_state": "DATA_READY"})
+
+        llm_status = get_llm_status()
+        if llm_status["enabled"] and not llm_status["available"]:
+            logger.warning(
+                "LLM provider enabled but unavailable. Draft generation will use fallback agents.",
+                extra={"case_id": case_id}
+            )
+            await create_audit_event(
+                self.db,
+                case_id,
+                "LLM_UNAVAILABLE",
+                "SYSTEM",
+                "orchestrator",
+                {
+                    "provider": llm_status.get("provider"),
+                    "reason": llm_status.get("reason"),
+                    "base_url": llm_status.get("base_url"),
+                    "model": llm_status.get("model"),
+                },
+            )
 
         draft_artifacts = await self._run_task(
             case_id,

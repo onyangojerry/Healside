@@ -1,5 +1,6 @@
 from app.services.agents import SummaryAgent, MedRecAgent, FollowUpPlanAgent, SchedulingAgent, CommsAgent
-from app.services.llm_client import get_llm
+from app.services.llm_client import get_llm, get_llm_status
+from app.core.logging import logger
 
 NO_SOURCE = "NO_SOURCE"
 
@@ -9,6 +10,11 @@ class DraftGenerationAgent:
 
     def run(self, normalized):
         if not self.llm:
+            status = get_llm_status()
+            logger.warning(
+                "LLM unavailable. Falling back to deterministic draft agents."
+                f" provider={status.get('provider')} reason={status.get('reason')}"
+            )
             return self._fallback_run(normalized)
 
         condition_focus = normalized.get("condition_focus", "the current condition")
@@ -84,5 +90,6 @@ class DraftGenerationAgent:
         try:
             response = self.llm.invoke(prompt)
             return response.strip() if isinstance(response, str) else fallback
-        except Exception:
+        except Exception as exc:
+            logger.warning(f"LLM invocation failed. Using fallback text. error={exc}")
             return fallback

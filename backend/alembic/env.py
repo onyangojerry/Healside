@@ -1,8 +1,15 @@
 import os
+import sys
+from pathlib import Path
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from app.db.models import Base
 from app.core.config import settings
 
@@ -15,7 +22,7 @@ target_metadata = Base.metadata
 
 database_url = os.getenv("DATABASE_URL", settings.database_url)
 if database_url.startswith("postgresql+asyncpg"):
-    database_url = database_url.replace("postgresql+asyncpg", "postgresql", 1)
+    database_url = database_url.replace("postgresql+asyncpg", "postgresql+psycopg", 1)
 config.set_main_option("sqlalchemy.url", database_url)
 
 def run_migrations_offline():

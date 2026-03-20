@@ -2,11 +2,11 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 sqlalchemy==2.0.23
 alembic==1.12.1
-psycopg2-binary==2.9.9
+
 redis==5.0.1
 celery==5.3.4
-pydantic==2.5.0
-pydantic-settings==2.1.0
+pydantic==2.8.2
+pydantic-settings==2.3.4
 asyncpg==0.29.0
 greenlet==3.0.3
 python-jose[cryptography]==3.3.0
@@ -19,3 +19,4 @@ ruff==0.1.6
 black==23.11.0
 langchain-core==0.2.38
 langchain-community==0.2.12
+psycopg[binary]==3.3.3
